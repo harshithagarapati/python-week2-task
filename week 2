@@ -1,0 +1,99 @@
+import time
+
+def introduction():
+    print("Welcome to the Text-based Adventure Game!")
+    print("You find yourself in a mysterious land with a quest ahead.")
+    print("Your choices will determine the outcome of your adventure.\n")
+
+def make_choice(choices):
+    print("Choose your path:")
+    for index, choice in enumerate(choices, start=1):
+        print(f"{index}. {choice}")
+
+    while True:
+        try:
+            choice = int(input("Enter the number of your choice: "))
+            if 1 <= choice <= len(choices):
+                return choice
+            else:
+                print("Invalid choice. Try again.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+def forest_path():
+    print("You are walking through a dense forest.")
+    time.sleep(1)
+    print("You encounter a fork in the road.")
+
+    choices = ["Take the left path", "Take the right path"]
+    choice = make_choice(choices)
+
+    if choice == 1:
+        print("You venture into the left path.")
+        time.sleep(1)
+        print("You find a hidden cave.")
+        return "cave"
+    else:
+        print("You take the right path.")
+        time.sleep(1)
+        print("You stumble upon a magical pond.")
+        return "pond"
+
+def explore_cave():
+    print("Inside the cave, you discover a sleeping dragon.")
+    time.sleep(1)
+    print("You can either try to sneak by or wake up the dragon.")
+
+    choices = ["Sneak by", "Wake up the dragon"]
+    choice = make_choice(choices)
+
+    if choice == 1:
+        print("You successfully sneak by the dragon.")
+        return "dragon_sneak"
+    else:
+        print("The dragon wakes up!")
+        return "dragon_wake"
+
+def dragon_sneak():
+    print("You continue your journey undetected.")
+    time.sleep(1)
+    print("You find the stolen artifact, the Crystal of Destiny!")
+    return "good_ending"
+
+def dragon_wake():
+    print("The dragon breathes fire!")
+    time.sleep(1)
+    print("Unfortunately, your quest ends here.")
+    return "bad_ending"
+
+def explore_pond():
+    print("At the magical pond, you see a wise old wizard.")
+    time.sleep(1)
+    print("He offers you a choice between two potions.")
+
+    choices = ["Blue Potion", "Red Potion"]
+    choice = make_choice(choices)
+
+    if choice == 1:
+        print("The Blue Potion gives you strength.")
+        return "good_ending"
+    else:
+        print("The Red Potion transports you to another dimension.")
+        return "bad_ending"
+
+def main():
+    introduction()
+    location = forest_path()
+
+    if location == "cave":
+        location = explore_cave()
+    elif location == "pond":
+        location = explore_pond()
+
+    if location == "good_ending":
+        print("Congratulations! You have averted disaster and completed your quest.")
+    elif location == "bad_ending":
+        print("Unfortunately, your adventure comes to a sad end.")
+
+if __name__ == "__main__":
+    main()
